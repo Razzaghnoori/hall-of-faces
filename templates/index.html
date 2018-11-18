@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Animated image upload form</title>
+  <link rel="stylesheet" href=" {{ url_for('static', filename='css/style.css') }}">
+  <script  src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+
+</head>
+
+<body>
+
+  <div class="uploadWrapper">
+  <form id="imageUploadForm" class="imageUploadForm" enctype="multipart/form-dataenctype">
+    <span class="helpText" id="helpText">Upload an Image</span>
+    <input type='file' id="file" class="uploadButton" accept="image/*" />
+    <div id="uploadedImg" class="uploadedImg">
+      <span class="unveil"></span>
+    </div>
+    <div id="resultsContainer">
+    </div>
+  </form>
+</div>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+</body>
+
+</html>
