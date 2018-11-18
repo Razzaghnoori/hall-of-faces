@@ -25,9 +25,9 @@ class MatchFinder():
         min_dist = float('inf')
 
         for row in self.cur:
-            (id_, name, path, encoding) = row
+            encoding = row[3]
             distance = face_recognition.face_distance(target_encoding, encoding)
             if distance < min_dist:
                 most_similar_row = row
                 min_dist = distance
-        return row
+        return most_similar_row
