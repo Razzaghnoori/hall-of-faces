@@ -1,0 +1,33 @@
+.mainContainer {
+    position: absolute;
+    width: 100%;
+    margin: 1em;
+}
+.myBox {
+    box-sizing: border-box;
+    width: 60%;
+    padding: 1em;
+    position: relative;
+    margin: 0 auto;
+    background-color: lightblue;
+}
+.imageContainer {
+    box-sizing: border-box;
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+.commandContainer {
+    box-sizing: border-box;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 1em;
+}
+img {
+    border-radius: 2%;
+    max-width: 100%;
+    max-height: 70vh;
+    width: auto;
+    display: block;
+    overflow: auto;
+}

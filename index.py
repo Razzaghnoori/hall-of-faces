@@ -27,7 +27,7 @@ def upload_file():
         if file_:
             filename = secure_filename(file_.filename)
             file_.save(os.path.join('imgs', filename))
-            return dumps({'result': 'OK'})
+            return dumps({'result': 'OK', 'url': '/images/default.jpg'})
     return '''
     <!doctype html>
     <title>Upload new File</title>
