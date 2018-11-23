@@ -1,6 +1,6 @@
 var $form = $("#mainForm");
 var $file = $("#file");
-var inpImg = $("#inpImg");
+var inpImg = $(".inpImg");
 
 function readURL(input) {
   if (input.files && input.files[0]) {
