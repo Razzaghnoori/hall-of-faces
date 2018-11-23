@@ -4,26 +4,35 @@
 <head>
   <meta charset="UTF-8">
   <title>Animated image upload form</title>
-  <link rel="stylesheet" href=" {{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href=" {{ url_for('static', filename='css/new.css') }}">
   <script  src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 </head>
 
 <body>
-
-  <div class="uploadWrapper">
-  <form id="imageUploadForm" class="imageUploadForm" enctype="multipart/form-dataenctype">
-    <span class="helpText" id="helpText">Upload an Image</span>
-    <input type='file' id="file" class="uploadButton" accept="image/*" />
-    <div id="uploadedImg" class="uploadedImg">
-      <span class="unveil"></span>
+  <form enctype="multipart/form-data" class="mainContainer">
+    <div class='jumbotron myBox'>
+    <div class='h-100 row align-items-center'>
+      <div class='col'>
+        <img id='inpImg' src=''>
+      </div>
+      <div class='col'>
+        <img id='outImg' src=''>
+      </div>
     </div>
-    <div id="resultsContainer">
+    <div class='h-100 row align-items-center'>
+      <input id="file" type="file" placeholder="Browse" style="direction: ltr;" class='btn'>
+    </div>
     </div>
   </form>
-</div>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
-
 </body>
 
 </html>
