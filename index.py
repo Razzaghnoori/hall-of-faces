@@ -1,8 +1,9 @@
-from json import dumps
 import os
-from flask import Flask, flash, request, redirect, url_for, render_template
+from json import dumps
+from flask import Flask, flash, request
+from flask import redirect, url_for, render_template, send_file
 from werkzeug.utils import secure_filename
-
+from src import api
 
 app = Flask(__name__)
 
@@ -13,7 +14,7 @@ def _index():
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        print request.files
+        match_finder = api.MatchFinder()
         # check if the post request has the file part
         if 'fileToUpload' not in request.files:
             print 'No file part'
@@ -26,16 +27,15 @@ def upload_file():
             return redirect(request.url)
         if file_:
             filename = secure_filename(file_.filename)
-            file_.save(os.path.join('imgs', filename))
-            return dumps({'result': 'OK', 'url': '/images/default.jpg'})
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+            file_path = os.path.join('imgs', filename)
+            file_.save(file_path)
+            name, image_path = match_finder.find(file_path)
+            print name, image_path
+            return dumps({'result': 'OK', 'url': image_path, 'name': name})
 
+        return render_template('index.html')
+
+@app.route('/images/<path:filename>')
+def download_file(filename):
+    return send_file('./images/' + filename)
 app.run(port=5000, debug=True)

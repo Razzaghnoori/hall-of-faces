@@ -1,25 +1,31 @@
 import MySQLdb
-import os
+import api
+import constants
+from os import listdir, getenv
+from os.path import join, isfile, exists
 from uuid import uuid4
 
-def fill_database(path):
-	conn = MySQLdb.connect(host="localhost" ,user="root" ,passwd="1234" ,db="faceland")
-	cur = conn.cursor()
-	dirs_names = os.listdir(path)
-	
-	for file_name in dirs_names:
-		personID = str(uuid4())
-		name = str(file_name)
-		sql_insert_query = 'INSERT INTO people (id, name, category) VALUES (%s, %s, "actor")'
-		cur.execute(sql_insert_query , (personID,name,))
-		conn.commit()
-		dirs_images = os.listdir(path + "/" + name)
-		for file_image in dirs_images:
-			name_image = str(file_image)
-			image_path = path+ "/"+name+"/"+ name_image
-			if(image_path[len(image_path)-1] == 'g'):
-				sql_insert_query_ = 'INSERT INTO images (id, pathphoto) VALUES (%s, %s)'
-				cur.execute(sql_insert_query_ , (personID,image_path,))
-				conn.commit()
+def fill_database(path, category='Celebrity'):
+    conn = MySQLdb.connect(host=getenv('FACES_DB_HOST', 'localhost'),
+                           database=getenv('FACES_DB_NAME', 'hall_of_faces'),
+                           user=getenv('FACES_DB_USER', 'valar_morghulis'),
+                           passwd=getenv('FACES_DB_PASS', 'valar_dohaeris'))
+
+    cur = conn.cursor()
+
+    for name in listdir(path):
+        if isfile(name):
+            continue
+        id_ = str(uuid4())
+        query = 'INSERT INTO people (id, name, category) VALUES (%s, %s, %s)'
+        cur.execute(query , (id_, name, category))
+        for file_ in listdir(join(path, name)):
+            image_path = join(path, name, file_)
+            extension = file_.split('.')[-1]
+            if exists(image_path) and isfile(image_path) and extension in constants.allowed_image_types:
+                encoding = api.get_encoding(image_path)
+                query = 'INSERT INTO images (id, path, encoding) VALUES (%s, %s, %s)'
+                cur.execute(query , (id_, image_path, encoding))
+        conn.commit()
 
 fill_database("../images/thumbnails_features_deduped_sample")

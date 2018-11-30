@@ -1,6 +1,7 @@
 var $form = $("#mainForm");
 var $file = $("#file");
 var inpImg = $(".inpImg");
+var result_name = $(".name")
 
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -20,8 +21,9 @@ function readURL(input) {
                processData: false,
                contentType: false,
                success: function(response) {
-                console.log(inp_img_url);
-                inpImg.attr("src", inp_img_url);
+                json_resp = JSON.parse(response);
+                inpImg.attr("src", json_resp.url);
+                result_name.text(json_resp.name);
               },
                error: function(jqXHR, textStatus, errorMessage) {
                    console.log('khor');

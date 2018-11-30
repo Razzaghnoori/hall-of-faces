@@ -1,16 +1,17 @@
-CREATE DATABASE IF NOT EXISTS faceland;
-use faceland
+CREATE DATABASE IF NOT EXISTS hall_of_faces;
+
+use hall_of_faces
+
 CREATE TABLE IF NOT EXISTS people (
-	id varchar(36) NOT NULL UNIQUE,
-	category varchar(50),
-	name varchar(100),
-	PRIMARY KEY (id)
+	id VARCHAR(36) NOT NULL PRIMARY KEY,
+	category VARCHAR(50),
+	name VARCHAR(100)
 );
 
 CREATE TABLE IF NOT EXISTS images (
-	id varchar(36) NOT NULL,
-	pathphoto varchar(500),
-	encoding varchar(300),
-	PRIMARY KEY (id, pathphoto),	
+	id VARCHAR(36) NOT NULL,
+	path VARCHAR(500),
+	encoding BLOB DEFAULT NULL,
+	PRIMARY KEY (id, path),
 	FOREIGN KEY (id) REFERENCES people(id)
 );
