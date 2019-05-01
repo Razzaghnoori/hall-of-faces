@@ -23,7 +23,7 @@ function readURL(input) {
                success: function(response) {
                 json_resp = JSON.parse(response);
                 inpImg.attr("src", json_resp.url);
-                result_name.text(json_resp.name);
+                result_name.text(json_resp.name); 
               },
                error: function(jqXHR, textStatus, errorMessage) {
                    console.log('khor');
